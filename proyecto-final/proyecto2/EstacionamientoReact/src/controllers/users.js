@@ -25,18 +25,29 @@ export const getUser = async (req, res) => {
     }
 }
 
+export const getUserCount = async (req, res) => {
+    try {
+        const connection = await connect();
+        const [rows] = await connection.query("SELECT COUNT(*) FROM User");
+        res.json(rows[0]["COUNT(*)"]);
+    } catch (error) {
+        console.error("Error al obtener el total de usuarios:", error);
+        res.status(500).send("Error interno del servidor");
+    }
+}
+
+
 export const saveUser = async (req, res) => {
     try {
-        const { first_name, last_name, password, email, nickname, category, accessCode } = req.body;
         const connection = await connect();
-        const [results] = await connection.query("INSERT INTO User (first_name, last_name, password, email, nickname, category, accessCode) VALUES (?,?,?,?,?,?,?)", [
-            first_name,
-            last_name,
-            password,
-            email,
-            nickname,
-            category,
-            accessCode
+        const [results] = await connection.query("INSERT INTO User (pk_user, first_name, last_name, password, email, nickname, category, accessCode) VALUES (NULL,?,?,?,?,?,?,?)", [
+            req.body.first_name,
+            req.body.last_name,
+            req.body.password,
+            req.body.email,
+            req.body.nickname,
+            req.body.category,
+            req.body.accessCode
         ]);
         res.json({
             id: results.insertId,

@@ -3,7 +3,10 @@
 GET {{api}}
 
 ###
-GET  {{api}}/2
+GET  {{api}}/1
+
+###
+GET {{api}}/count
 
 ###
 POST  {{api}}

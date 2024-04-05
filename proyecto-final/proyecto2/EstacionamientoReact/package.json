@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "babel src -d dist",
-    "dev": "nodemon src --exec babel-node"
+    "dev": "nodemon src --exec babel-node",
+    "startDist": "node dist"  
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.1.3",
