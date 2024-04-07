@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import Layout from '../components/Layout'
+import EmployeeList from '../components/EmployeeList';
+
 
 const Employee = () => {
   return (
     <Layout>
-      <Text>Empleados</Text>
+      <EmployeeList />
     </Layout>
   )
 }

@@ -23,11 +23,11 @@ const App = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Employee') {
-              iconName = focused ? 'people-outline' : 'people-outline'; // Cambia 'ios-Employee' por el nombre del icono que deseas utilizar
+            if (route.name === 'Empleados') {
+              iconName = focused ? 'people-outline' : 'people-outline'; // Cambia 'ios-Empleados' por el nombre del icono que deseas utilizar
             } else if (route.name === 'Parkings') {
               iconName = focused ? 'grid-outline' : 'grid-outline'; // Cambia 'ios-person' por el nombre del icono que deseas utilizar
-            } else if (route.name === 'History') {
+            } else if (route.name === 'Historial') {
               iconName = focused ? 'newspaper-outline' : 'newspaper-outline'; // Cambia 'ios-create' por el nombre del icono que deseas utilizar
             }
 
@@ -36,10 +36,19 @@ const App = () => {
           },
         })}>
         <Tab.Screen
-          name="Employee"
+          name="Empleados"
           component={Employee}
           options={{
             tabBarLabel: 'Empleados',
+            headerRight: () => (
+              <Ionicons.Button
+                name="add-circle-outline"
+                size={30}
+                color="green"
+                backgroundColor="transparent"
+                onPress={() => navigation.navigate('EmployeeForm')}
+              />
+            ),
           }}
         />
         <Tab.Screen
@@ -47,10 +56,19 @@ const App = () => {
           component={Parkings}
           options={{
             tabBarLabel: 'Parkings',
-          }}
+            headerRight: () => (
+              <Ionicons.Button
+                name="add-circle-outline"
+                size={30}
+                color="green"
+                backgroundColor="transparent"
+                onPress={() => navigation.navigate('ParkingsForm')}
+              />
+            ),
+          }}          
         />
         <Tab.Screen
-          name="History"
+          name="Historial"
           component={History}
           options={{
             tabBarLabel: 'Historial',

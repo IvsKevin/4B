@@ -8,8 +8,9 @@ const ParkingItem = ({ parking, handleDelete }) => {
     return (
         <View style={styles.itemContainer}>
             <Pressable onPress={() => navigation.navigate('ParkingDetails', { id: parking.pk_parking })}>
-                <Text style={styles.itemTitle}>{parking.parking_location}</Text>
-                <Text style={styles.itemDescription}>{parking.parking_number}</Text>
+                <Text style={styles.itemTitle}>Numero de Parking: {parking.parking_number}</Text>
+                <Text style={styles.itemDescription}>Ubicacion: {parking.parking_location}</Text>
+                <Text style={styles.itemDescription}>Capacidad: {parking.parking_capacity}</Text>
             </Pressable>
 
             <Pressable style={styles.btnEliminar} onPress={() => handleDelete(parking.pk_parking)}>
