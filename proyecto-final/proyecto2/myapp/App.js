@@ -1,77 +1,101 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from '@expo/vector-icons'; // Importa los iconos que desees utilizar
+import { createStackNavigator } from "@react-navigation/stack";
+import { Ionicons } from '@expo/vector-icons';
 
-// import HomeScreen from './screens/HomeScreen'
-// import Register from './screens/Register'
 import EmployeeForm from "./screens/EmployeeForm";
-
+import ParkingForm from "./screens/ParkingsForm";
 import Employee from "./screens/Employee";
 import Parkings from './screens/Parkings';
 import History from './screens/History';
 
-
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const EmployeeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Employee"
+        component={Employee}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Ionicons.Button
+              name="add-circle-outline"
+              size={30}
+              color="green"
+              backgroundColor="transparent"
+              onPress={() => navigation.navigate('EmployeeForm')}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="EmployeeForm"
+        component={EmployeeForm}
+        options={{ title: 'Agregar Empleado' }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ParkingStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Parkings"
+        component={Parkings}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Ionicons.Button
+              name="add-circle-outline"
+              size={30}
+              color="green"
+              backgroundColor="transparent"
+              onPress={() => navigation.navigate('ParkingsForm')}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ParkingsForm"
+        component={ParkingForm}
+        options={{ title: 'Agregar Parking' }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Parkings"
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Empleados') {
-              iconName = focused ? 'people-outline' : 'people-outline'; // Cambia 'ios-Empleados' por el nombre del icono que deseas utilizar
-            } else if (route.name === 'Parkings') {
-              iconName = focused ? 'grid-outline' : 'grid-outline'; // Cambia 'ios-person' por el nombre del icono que deseas utilizar
-            } else if (route.name === 'Historial') {
-              iconName = focused ? 'newspaper-outline' : 'newspaper-outline'; // Cambia 'ios-create' por el nombre del icono que deseas utilizar
-            }
-
-            // Devuelve el componente de icono con el nombre y el color especificados
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}>
+      <Tab.Navigator>
         <Tab.Screen
           name="Empleados"
-          component={Employee}
+          component={EmployeeStack}
           options={{
-            tabBarLabel: 'Empleados',
-            headerRight: () => (
-              <Ionicons.Button
-                name="add-circle-outline"
-                size={30}
-                color="green"
-                backgroundColor="transparent"
-                onPress={() => navigation.navigate('EmployeeForm')}
-              />
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="people-outline" size={size} color={color} />
             ),
           }}
         />
         <Tab.Screen
           name="Parkings"
-          component={Parkings}
+          component={ParkingStack}
           options={{
-            tabBarLabel: 'Parkings',
-            headerRight: () => (
-              <Ionicons.Button
-                name="add-circle-outline"
-                size={30}
-                color="green"
-                backgroundColor="transparent"
-                onPress={() => navigation.navigate('ParkingsForm')}
-              />
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="grid-outline" size={size} color={color} />
             ),
-          }}          
+          }}
         />
         <Tab.Screen
           name="Historial"
           component={History}
           options={{
-            tabBarLabel: 'Historial',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="newspaper-outline" size={size} color={color} />
+            ),
           }}
         />
       </Tab.Navigator>

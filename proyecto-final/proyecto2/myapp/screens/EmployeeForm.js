@@ -1,104 +1,109 @@
-import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native'
-import { React, useState } from 'react'
-
-import Layout from '../components/Layout';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Pressable, Alert } from 'react-native';
 import { saveUser } from '../api';
+import { useNavigation } from '@react-navigation/native';
 
-const EmployeeForm = ({ navigation }) => {
+const EmployeeForm = () => {
     const [employee, setEmployee] = useState({
         nickname: '',
         email: '',
         password: '',
+        tel: '',
         category: 'C',
         accessCode: '1234567891',
     });
 
-    const handleChange = (name, value) => setEmployee({ ...employee, [name]: value });
+    const handleChange = (name, value) => {
+        setEmployee({ ...employee, [name]: value });
+    };
 
-    const handleSubmit = () => {
-        saveUser(user);
-        navigation.navigate('HomeScreen');
-    }
+    const handleSubmit = async () => {
+        try {
+            await saveUser(employee);
+            // Limpiar el formulario después de guardar exitosamente
+            setEmployee({
+                nickname: '',
+                email: '',
+                password: '',
+                tel: '',
+                category: 'C',
+                accessCode: '1234567891',
+            });
+            Alert.alert('Éxito', 'El empleado ha sido agregado exitosamente.');
+        } catch (error) {
+            console.error('Error al guardar el empleado:', error);
+            Alert.alert(
+                'Error',
+                'Hubo un problema al intentar agregar el empleado. Por favor, inténtalo de nuevo más tarde.'
+            );
+        }
+    };
 
     return (
-        <Layout>
-            <View style={styles.inputContainer}>
-                <Text style={styles.inputTitle}>Nombre del empleado: </Text>
-
-                <TextInput style={styles.input}
-                    onChangeText={(text) => handleChange('nickname', text)}
-                    placeholderTextColor={'#808080'}
-                    placeholder='Escribe un nombre'>
-                </TextInput>
-            </View>
-            <View style={styles.inputContainer}>
-                <Text style={styles.inputTitle}>Apellido paterno del empleado: </Text>
-
-                <TextInput style={styles.input}
-                    onChangeText={(text) => handleChange('email', text)}
-                    placeholderTextColor={'#808080'}
-                    placeholder='Escribe el apellido paterno'>
-                </TextInput>
-            </View>
-            <View style={styles.inputContainer}>
-                <Text style={styles.inputTitle}>Apellido materno del empleado: </Text>
-
-                <TextInput style={styles.input}
-                    onChangeText={(text) => handleChange('password', text)}
-                    placeholderTextColor={'#808080'}
-                    placeholder='Escribe el apellido materno'>
-                </TextInput>
-            </View>
-
-            <Pressable style={styles.inputSubmit} onPress={handleSubmit}>
-                <Text style={{ color: '#ffffff', fontSize: 20 }}>Crear nuevo empleado</Text>
+        <View style={styles.container}>
+            <Text style={styles.label}>Nombre del empleado:</Text>
+            <TextInput
+                style={styles.input}
+                value={employee.nickname}
+                onChangeText={(text) => handleChange('nickname', text)}
+                placeholder="Ingrese el nombre del empleado"
+            />
+            <Text style={styles.label}>Apellido paterno del empleado:</Text>
+            <TextInput
+                style={styles.input}
+                value={employee.email}
+                onChangeText={(text) => handleChange('email', text)}
+                placeholder="Ingrese el apellido paterno del empleado"
+            />
+            <Text style={styles.label}>Apellido materno del empleado:</Text>
+            <TextInput
+                style={styles.input}
+                value={employee.password}
+                onChangeText={(text) => handleChange('password', text)}
+                placeholder="Ingrese el apellido materno del empleado"
+            />
+            <Text style={styles.label}>Teléfono:</Text>
+            <TextInput
+                style={styles.input}
+                value={employee.tel}
+                onChangeText={(text) => handleChange('tel', text)}
+                placeholder="Ingrese el teléfono del empleado"
+                keyboardType="numeric"
+            />
+            <Pressable style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Agregar Empleado</Text>
             </Pressable>
-        </Layout>
-    )
-}
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        width: '100%',
-        marginBottom: 20,
-        padding: 10,
-        borderRadius: 10,
-        justifyContent: 'space-between',
-        alignItems: 'left'
+    container: {
+        padding: 20,
     },
-    inputTitle: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginBottom: 2,
-        color: '#ffffff'
-    },
-    inputSubmit: {
-        width: '100%',
-        padding: 10,
-        marginBottom: 20,
-        borderRadius: 10,
-        backgroundColor: "#10ac84",
-        borderColor: "#ffffff",
-        borderWidth: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 20,
-        color: '#ffffff',
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center'
+    label: {
+        fontSize: 16,
+        marginBottom: 5,
     },
     input: {
-        width: '100%',
-        marginBottom: 20,
-        padding: 15,
-        borderRadius: 10,
-        borderColor: "#10ac84",
+        height: 40,
+        borderColor: 'gray',
         borderWidth: 1,
-        fontSize: 15,
-        color: '#ffffff'
-    }
-})
+        borderRadius: 5,
+        marginBottom: 10,
+        paddingHorizontal: 10,
+    },
+    button: {
+        backgroundColor: '#10ac84',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+});
 
-export default EmployeeForm
+export default EmployeeForm;

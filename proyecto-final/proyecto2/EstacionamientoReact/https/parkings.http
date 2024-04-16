@@ -12,15 +12,13 @@ GET {{api}}/1
 GET {{api}}/count
 
 ###
-### Agregar un nuevo parking
 POST {{api}}
+
 Content-Type: application/json
 {
     "parking_number": 1,
     "parking_location": "Ejemplo de ubicación",
-    "parking_capacity": 50,
-    "fk_client": 1,
-    "fk_status": 1
+    "parking_capacity": 50
 }
 
 ###
