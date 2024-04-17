@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, RefreshControl } from 'react-native';
+import { View, FlatList, RefreshControl, StyleSheet, Dimensions } from 'react-native';
 import EmployeeItem from './EmployeeItem'; // Asegúrate de tener este componente EmployeeItem creado y disponible
 import { getEmployees, deleteEmployee } from '../api'; // Asegúrate de importar las funciones adecuadas del API
 
 const EmployeesList = () => {
     const [employees, setEmployees] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    
+
     const loadEmployees = async () => {
         const data = await getEmployees();
         setEmployees(data);
@@ -22,7 +22,7 @@ const EmployeesList = () => {
     }
 
     const renderItem = ({ item }) => {
-        return <EmployeeItem employee={item} handleDelete={handleDelete}/>;
+        return <EmployeeItem employee={item} handleDelete={handleDelete} />;
     };
 
     const onRefresh = React.useCallback(async () => {
@@ -32,8 +32,9 @@ const EmployeesList = () => {
     }, []);
 
     return (
-        <View>
+        <View style={styles.container}>
             <FlatList
+                contentContainerStyle={styles.listContainer}
                 data={employees}
                 keyExtractor={(item) => item.pk_employee.toString()}
                 renderItem={renderItem}
@@ -48,5 +49,18 @@ const EmployeesList = () => {
         </View>
     );
 };
+
+const windowWidth = Dimensions.get('window').width;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        padding: 10,
+    },
+    listContainer: {
+        width: windowWidth - 20, // Resta el padding horizontal
+    },
+});
 
 export default EmployeesList;
