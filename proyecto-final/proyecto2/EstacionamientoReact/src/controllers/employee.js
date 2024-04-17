@@ -27,15 +27,16 @@ export const getEmployee = async (req, res) => {
 
 export const saveEmployee = async (req, res) => {
     try {
-        const { employee_name, employee_lastNameP, employee_lastNameM, fk_client, fk_status, fk_rol } = req.body;
+        const { employee_name, employee_lastNameP, employee_lastNameM, fk_client, fk_status, fk_rol, tel } = req.body;
         const connection = await connect();
-        const [results] = await connection.query("INSERT INTO Employee (employee_name, employee_lastNameP, employee_lastNameM, fk_client, fk_status, fk_rol) VALUES (?,?,?,?,?,?)", [
+        const [results] = await connection.query("INSERT INTO Employee (employee_name, employee_lastNameP, employee_lastNameM, fk_client, fk_status, fk_rol, tel) VALUES (?, ?, ?, NULL, NULL, 1, ?)", [
             employee_name,
             employee_lastNameP,
             employee_lastNameM,
             fk_client,
             fk_status,
-            fk_rol
+            fk_rol,
+            tel
         ]);
         res.json({
             id: results.insertId,

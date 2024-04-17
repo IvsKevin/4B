@@ -1,3 +1,16 @@
+// LOGIN
+export const loginUser = async (newLogin) => {
+    const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newLogin),
+    });
+    return await response.json();
+}
+
 // ================= PARKINGS =================
 // const API  = 'http://10.0.2.2:3000/parkings';
 const PARKINGS_API = 'http://localhost:3000/parkings';

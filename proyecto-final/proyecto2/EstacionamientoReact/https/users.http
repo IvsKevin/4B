@@ -1,7 +1,14 @@
 @api = http://localhost:3000/users
 
 GET {{api}}
+###
+POST http://localhost:3000/login
 
+Content-Type: application/json
+{
+    "emai": "kevin12@gmail.com",
+    "password": "kevin12"
+}
 ###
 GET  {{api}}/1
 

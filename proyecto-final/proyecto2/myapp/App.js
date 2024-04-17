@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -9,6 +9,7 @@ import ParkingForm from "./screens/ParkingsForm";
 import Employee from "./screens/Employee";
 import Parkings from './screens/Parkings';
 import History from './screens/History';
+import Login from "./screens/Login";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -68,37 +69,58 @@ const ParkingStack = () => {
 };
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = async (userData) => {
+    try {
+      // Aquí realizarías la lógica de autenticación, por ejemplo, llamando a una función loginUser
+      const response = await loginUser(userData);
+
+      if (response.success) {
+        setIsLoggedIn(true);
+      } else {
+        // Manejar error de autenticación, mostrar mensaje de error, etc.
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      // Manejo de errores
+    }
+  };
+
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Empleados"
-          component={EmployeeStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="people-outline" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Parkings"
-          component={ParkingStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="grid-outline" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Historial"
-          component={History}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="newspaper-outline" size={size} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      {isLoggedIn ? (
+        <Tab.Navigator initialRouteName="Parkings">
+          <Tab.Screen
+            name="Empleados"
+            component={EmployeeStack}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="people-outline" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Parkings"
+            component={ParkingStack}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="grid-outline" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Historial"
+            component={History}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="newspaper-outline" size={size} color={color} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      ) : (
+        <Login onLogin={(userData) => handleLogin(userData)} setIsLoggedIn={setIsLoggedIn} />)}
     </NavigationContainer>
   );
 }

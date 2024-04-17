@@ -40,7 +40,7 @@ export const getParkingCount = async (req, res) => {
 export const saveParking = async (req, res) => {
     try {
         const connection = await connect();
-        const [results] = await connection.query("INSERT INTO Parking (pk_parking, parking_number, parking_location, parking_capacity, fk_client, fk_status) VALUES (NULL, ?, ?, ?, 1, 1)", [
+        const [results] = await connection.query("INSERT INTO Parking (pk_parking, parking_number, parking_location, parking_capacity, fk_client, fk_status) VALUES (NULL, ?, ?, ?, NULL, 1)", [
             req.body.parking_number,
             req.body.parking_location,
             req.body.parking_capacity

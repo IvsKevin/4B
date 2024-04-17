@@ -82,3 +82,23 @@ export const updateUser = async (req, res) => {
         res.status(500).send("Error interno del servidor");
     }
 }
+
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const connection = await connect();
+        const [rows] = await connection.query("SELECT * FROM User WHERE email = ? AND password = ?", [email, password]);
+
+        if (rows.length > 0) {
+            // Usuario autenticado, devuelve los detalles del usuario
+            res.json({ success: true, user: rows[0], message: "Inicio de sesión exitoso" });
+        } else {
+            // Credenciales incorrectas
+            res.json({ success: false, message: "Credenciales incorrectas" });
+        }
+    } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        res.status(500).send("Error interno del servidor");
+    }
+};
