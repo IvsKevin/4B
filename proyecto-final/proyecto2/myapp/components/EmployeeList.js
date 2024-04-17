@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, RefreshControl, StyleSheet, Dimensions } from 'react-native';
+import { View, FlatList, RefreshControl } from 'react-native';
 import EmployeeItem from './EmployeeItem'; // Asegúrate de tener este componente EmployeeItem creado y disponible
-import { getEmployees, deleteEmployee, saveEmployee, updateEmployee } from '../api'; // Asegúrate de importar las funciones adecuadas del API
+import { getEmployees, deleteEmployee } from '../api'; // Asegúrate de importar las funciones adecuadas del API
 
 const EmployeesList = () => {
     const [employees, setEmployees] = useState([]);
@@ -21,7 +21,6 @@ const EmployeesList = () => {
         await loadEmployees();
     }
 
-    const numColumns = 3;
     const renderItem = ({ item }) => {
         return <EmployeeItem employee={item} handleDelete={handleDelete}/>;
     };
@@ -33,13 +32,11 @@ const EmployeesList = () => {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <View>
             <FlatList
-                contentContainerStyle={styles.gridContainer}
                 data={employees}
                 keyExtractor={(item) => item.pk_employee.toString()}
                 renderItem={renderItem}
-                numColumns={numColumns}
                 refreshing={refreshing}
                 refreshControl={
                     <RefreshControl
@@ -51,20 +48,5 @@ const EmployeesList = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        padding: 10,
-    },
-    gridContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
-        paddingTop: 10,
-    },
-});
 
 export default EmployeesList;

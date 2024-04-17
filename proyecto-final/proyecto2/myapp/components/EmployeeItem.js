@@ -21,7 +21,7 @@ const EmployeeItem = ({ employee, handleDelete }) => {
             </Pressable>
 
             <Pressable style={styles.btnEliminar} onPress={() => handleDelete(employee.pk_employee)}>
-                <Text style={{ color: 'white' }}>Eliminar</Text>
+                <Text style={styles.btnText}>Eliminar</Text>
             </Pressable>
         </View>
     );
@@ -32,7 +32,7 @@ const itemWidth = windowWidth / 3 - 20; // Resta el margen entre elementos
 
 const styles = StyleSheet.create({
     itemContainer: {
-        backgroundColor: '#EAEAEA',
+        backgroundColor: '#f5f5f5',
         width: itemWidth,
         height: 200,
         borderRadius: 10,
@@ -40,22 +40,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderColor: '#000',
         borderWidth: 1,
-        shadowColor: '#000',
+        shadowColor: 'black',
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.8,
-        shadowRadius: 5,
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
         elevation: 5,
-        marginHorizontal: 5, // Agregar margen horizontal
-        marginVertical: 5, // Agregar margen vertical
+        marginHorizontal: 5,
+        marginVertical: 5,
     },
     itemTitle: {
         fontSize: 16,
         marginBottom: 5,
         textAlign: 'center',
         marginTop: 10,
+        fontWeight: 'bold', // Añade negrita
     },
     itemDescription: {
         fontSize: 14,
@@ -63,10 +64,15 @@ const styles = StyleSheet.create({
     },
     btnEliminar: {
         backgroundColor: 'gray',
-        padding: 7,
-        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20, // Añade espaciado horizontal
+        borderRadius: 5,
         marginTop: 15,
-    }
+    },
+    btnText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
 });
 
 export default EmployeeItem;
