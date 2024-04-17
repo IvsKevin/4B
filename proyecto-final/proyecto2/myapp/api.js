@@ -1,6 +1,7 @@
 // LOGIN
+const ruta = '172.18.3.152';
 export const loginUser = async (newLogin) => {
-    const response = await fetch('http://localhost:3000/login', {
+    const response = await fetch('http://172.18.3.152:3000/login', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -13,7 +14,7 @@ export const loginUser = async (newLogin) => {
 
 // ================= PARKINGS =================
 // const API  = 'http://10.0.2.2:3000/parkings';
-const PARKINGS_API = 'http://localhost:3000/parkings';
+const PARKINGS_API = 'http://172.18.3.152:3000/parkings';
 
 // Funciones para operaciones CRUD de parkings
 export const getParkings = async () => {
@@ -53,7 +54,7 @@ export const updateParking = async (id, updatedParking) => {
 
 // ================= EMPLEADOS =================
 // Define la URL base para las operaciones relacionadas con empleados
-const EMPLOYEES_API = 'http://localhost:3000/employees';
+const EMPLOYEES_API = 'http://172.18.3.152:3000/employees';
 // const EMPLOYEES_API = 'http://192.168.1.10:3000/employees';
 
 // Funciones para operaciones CRUD de empleados
@@ -92,7 +93,7 @@ export const updateEmployee = async (id, updatedEmployee) => {
 }
 
 // ================= HISTORY =================
-const HISTORY_API = 'http://localhost:3000/history';
+const HISTORY_API = 'http://172.18.3.152:3000/history';
 
 // Funciones para operaciones CRUD de historial
 export const getHistory = async () => {
@@ -140,7 +141,7 @@ export const updateHistory = async (id, updatedHistory) => {
 }
 
 // ================= VISITS =================
-const VISITS_API = 'http://localhost:3000/visits';
+const VISITS_API = 'http://172.18.3.152:3000/visits';
 
 export const getVisits = async () => {
     const response = await fetch(VISITS_API);
