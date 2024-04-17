@@ -6,9 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 import EmployeeForm from "./screens/EmployeeForm";
 import ParkingForm from "./screens/ParkingsForm";
+import VisitForm from "./screens/VisitForm";
 import Employee from "./screens/Employee";
 import Parkings from './screens/Parkings';
 import History from './screens/History';
+import Visit from './screens/Visit';
 import Login from "./screens/Login";
 
 const Tab = createBottomTabNavigator();
@@ -68,6 +70,33 @@ const ParkingStack = () => {
   );
 };
 
+const VisitStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Visit"
+        component={Visit}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Ionicons.Button
+              name="add-circle-outline"
+              size={30}
+              color="green"
+              backgroundColor="transparent"
+              onPress={() => navigation.navigate('VisitForm')}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="VisitForm"
+        component={VisitForm}
+        options={{ title: 'Agregar Visita' }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -106,6 +135,15 @@ const App = () => {
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="grid-outline" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Visitas"
+            component={VisitStack}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="time-outline" size={size} color={color} />
               ),
             }}
           />

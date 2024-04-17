@@ -12,6 +12,7 @@ import licensesRoutes from './routes/licenses'; // Importa las rutas de licencia
 import parkings from './routes/parkings'; // Importa las rutas de licencias
 import history from './routes/history'; // Importa las rutas de licencias
 import employee from './routes/employee'; // Importa las rutas de licencias
+import visit from './routes/visit'; // Importa las rutas de licencias
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(licensesRoutes); // Usa las rutas de licencias
 app.use(parkings); // Usa las rutas de licencias
 app.use(history); // Usa las rutas de licencias
 app.use(employee); // Usa las rutas de licencias
+app.use(visit); // Usa las rutas de licencias
 
 app.use('/docs', swaggerIU.serve, swaggerIU.setup(specs))
 

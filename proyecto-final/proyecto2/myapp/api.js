@@ -138,3 +138,40 @@ export const updateHistory = async (id, updatedHistory) => {
         body: JSON.stringify(updatedHistory),
     });
 }
+
+// ================= VISITS =================
+const VISITS_API = 'http://localhost:3000/visits';
+
+export const getVisits = async () => {
+    const response = await fetch(VISITS_API);
+    return await response.json();
+}
+
+export const saveVisit = async (newVisit) => {
+    const response = await fetch(VISITS_API, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newVisit),
+    });
+    return await response.json();
+}
+
+export const deleteVisit = async (id) => {
+    await fetch(`${VISITS_API}/${id}`, {
+        method: 'DELETE',
+    });
+}
+
+export const updateVisit = async (id, updatedVisit) => {
+    await fetch(`${VISITS_API}/${id}`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedVisit),
+    });
+}
