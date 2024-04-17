@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, RefreshControl, View, StyleSheet, Dimensions } from 'react-native';
-import ParkingItem from './ParkingsItem'; // Asegúrate de tener este componente ParkinItem creado y disponible
-import { getParkings, deleteParking } from '../api'; // Asegúrate de importar las funciones adecuadas del API
+import ParkingItem from './ParkingsItem';
+import { getParkings, deleteParking } from '../api';
 
 const ParkingsList = () => {
     const [parkings, setParkings] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-
 
     const loadParkings = async () => {
         const data = await getParkings();
@@ -57,10 +56,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        padding: 10,
+        paddingHorizontal: 10, // Ajuste del padding horizontal
     },
     listContainer: {
-        width: windowWidth - 20, // Resta el padding horizontal
+        width: windowWidth - 20, // Ajuste del ancho de la lista restando el padding horizontal
     },
 });
 

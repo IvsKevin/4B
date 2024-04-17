@@ -30,6 +30,7 @@ const itemWidth = windowWidth * 0.9; // Ajusta el ancho del contenedor principal
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: windowWidth * 0.7,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#EAEAEA',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const ParkingItem = ({ parking, handleDelete }) => {
@@ -23,9 +23,11 @@ const ParkingItem = ({ parking, handleDelete }) => {
     );
 }
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: windowWidth * 0.7, // Ajusta el ancho al 90% del ancho de la pantalla
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#EAEAEA',
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     itemContainer: {
-        width: '90%',
+        width: windowWidth * 0.9, // Ajusta el ancho al 90% del ancho de la pantalla
         alignItems: 'center',
     },
     itemTitle: {

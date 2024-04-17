@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 
 const HistoryItem = ({ history, handleDelete }) => {
     return (
@@ -37,14 +37,16 @@ const HistoryItem = ({ history, handleDelete }) => {
     );
 }
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: windowWidth * 0.7,
         justifyContent: 'center',
         alignItems: 'center',
     },
     itemContainer: {
-        width: '35%',
         backgroundColor: '#f5f5f5',
         padding: 15,
         marginBottom: 20,
