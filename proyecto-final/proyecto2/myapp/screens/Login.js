@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { loginUser } from '../api'; // Importamos la función de autenticación de la API
 import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
 
@@ -32,7 +32,7 @@ const LoginScreen = ({ setIsLoggedIn }) => {
             } else {
                 // Si hay un error, mostramos el mensaje de error
                 // Puedes mostrar el mensaje de error en una alerta o en otro lugar de la interfaz de usuario
-                Alert.alert('Error', response.message);
+                console.error('Error al iniciar sesión:', response.message);
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
@@ -47,48 +47,84 @@ const LoginScreen = ({ setIsLoggedIn }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Inicio de Sesión</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Correo electrónico"
-                value={userData.email}
-                onChangeText={(text) => handleChange('email', text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
-                secureTextEntry
-                value={userData.password}
-                onChangeText={(text) => handleChange('password', text)}
-            />
-            <Button title="Iniciar Sesión" onPress={handleLogin} />
+        <View style={styles.outerContainer}>
+            <View style={styles.innerContainer}>
+                <Text style={styles.title}>Parking Manager</Text>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Correo electrónico"
+                        value={userData.email}
+                        onChangeText={(text) => handleChange('email', text)}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Contraseña"
+                        secureTextEntry
+                        value={userData.password}
+                        onChangeText={(text) => handleChange('password', text)}
+                    />
+                </View>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Iniciar Sesión</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    outerContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)', // Color gris semitransparente
+        paddingHorizontal: 20,
+    },
+    innerContainer: {
+        width: '30%',
+        backgroundColor: '#fff', // Color de fondo blanco
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: '#000', // Color de la sombra
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5, // Elevación para Android
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        color: '#333',
+        textAlign: 'center',
+    },
+    inputContainer: {
+        marginBottom: 20,
     },
     input: {
-        width: '80%',
-        marginBottom: 10,
-        padding: 10,
+        width: '100%',
+        marginBottom: 15,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
     },
-    error: {
-        color: 'red',
-        marginBottom: 10,
+    button: {
+        width: '100%',
+        backgroundColor: 'gray',
+        paddingVertical: 15,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });
 

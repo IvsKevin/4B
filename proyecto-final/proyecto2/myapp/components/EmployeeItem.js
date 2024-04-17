@@ -45,15 +45,14 @@ const styles = StyleSheet.create({
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        shadowOpacity: 0.8,
+        shadowRadius: 5,
         elevation: 5,
         marginHorizontal: 5, // Agregar margen horizontal
         marginVertical: 5, // Agregar margen vertical
     },
     itemTitle: {
         fontSize: 16,
-        fontWeight: 'bold',
         marginBottom: 5,
         textAlign: 'center',
         marginTop: 10,
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     btnEliminar: {
-        backgroundColor: '#ee5253',
+        backgroundColor: 'gray',
         padding: 7,
         borderRadius: 10,
         marginTop: 15,
